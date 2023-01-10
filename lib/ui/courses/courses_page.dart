@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:rw_courses/constans.dart';
 import 'package:rw_courses/ui/courses/courses_controller.dart';
 
 class CoursesPage extends StatefulWidget {
