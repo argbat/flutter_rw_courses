@@ -51,11 +51,16 @@ class Course {
   }
 
   String get domainStrings {
-    var result = '';
-    for (var i = 0; i < domains.length - 1; i++) {
-      result += '${domains[i].name}, ';
+    if (domains.isEmpty) {
+      return '';
     }
-    result += domains.last.name;
-    return result;
+    if (domains.length == 1) {
+      return domains.last.name;
+    }
+    return domains
+            .getRange(0, domains.length - 1)
+            .map((e) => e.name)
+            .reduce((value, element) => '$value, $element') +
+        domains.last.name;
   }
 }
