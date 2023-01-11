@@ -25,7 +25,7 @@ class Course {
         json['relationships']['domains']['data'] as List<dynamic>;
     if (domainsData.isNotEmpty) {
       for (var i = 0; i < domainsData.length; i++) {
-        final domain = Course.getDomain(
+        final domain = Course._getDomain(
             json['relationships']['domains']['data'][i]['id'] as String);
         domains.add(domain);
       }
@@ -37,7 +37,7 @@ class Course {
     return '$name:$domainStrings';
   }
 
-  static getDomain(String domainId) {
+  static _getDomain(String domainId) {
     switch (domainId) {
       case Constants.iosDomian:
         return Domain.ios;
@@ -50,6 +50,9 @@ class Course {
     }
   }
 
+  /// Get domians as a string with the format \<domain name\>, \<domain name\>.
+  ///
+  /// If there is no domians an empty string is returned.
   String get domainStrings {
     if (domains.isEmpty) {
       return '';

@@ -42,12 +42,13 @@ class _CoursesPageState extends State<CoursesPage> {
       padding: const EdgeInsets.all(8.0),
       child: ListTile(
         title: Padding(
-          padding: const EdgeInsets.only(bottom: 16.0),
+          padding: const EdgeInsets.only(bottom: 4.0),
           child: Text(
             course.name,
             style: const TextStyle(fontSize: 18.0),
           ),
         ),
+        subtitle: Text(course.domainStrings),
         trailing: ClipRRect(
           borderRadius: BorderRadius.circular(8.0),
           child: Image.network(course.artworkUrl),
