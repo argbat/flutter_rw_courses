@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rw_courses/model/course.dart';
 import 'package:rw_courses/repository/repository_impl.dart';
 import 'package:rw_courses/ui/courses/courses_controller.dart';
 
@@ -25,8 +26,33 @@ class _CoursesPageState extends State<CoursesPage> {
           );
         }
 
-        return Text(courses.toString());
+        return ListView.builder(
+          padding: const EdgeInsets.all(8.0),
+          itemCount: courses.length,
+          itemBuilder: (context, index) {
+            return _buildRow(courses[index]);
+          },
+        );
       },
+    );
+  }
+
+  Widget _buildRow(Course course) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: ListTile(
+        title: Padding(
+          padding: const EdgeInsets.only(bottom: 16.0),
+          child: Text(
+            course.name,
+            style: const TextStyle(fontSize: 18.0),
+          ),
+        ),
+        trailing: ClipRRect(
+          borderRadius: BorderRadius.circular(8.0),
+          child: Image.network(course.artworkUrl),
+        ),
+      ),
     );
   }
 }
