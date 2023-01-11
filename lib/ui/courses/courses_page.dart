@@ -50,9 +50,13 @@ class _CoursesPageState extends State<CoursesPage> {
             ),
           ),
           subtitle: Text(course.domainStrings),
-          trailing: ClipRRect(
-            borderRadius: BorderRadius.circular(8.0),
-            child: Image.network(course.artworkUrl),
+          trailing: Hero(
+            tag: course.courseId,
+            transitionOnUserGestures: true,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(8.0),
+              child: Image.network(course.artworkUrl),
+            ),
           ),
           onTap: () {
             Navigator.of(context).push<MaterialPageRoute>(
