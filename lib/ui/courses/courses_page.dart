@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rw_courses/model/course.dart';
 import 'package:rw_courses/repository/repository_impl.dart';
+import 'package:rw_courses/state/filter_state_container.dart';
 import 'package:rw_courses/ui/course_details/course_detail_page.dart';
 import 'package:rw_courses/ui/courses/courses_controller.dart';
 
@@ -13,15 +14,23 @@ class CoursesPage extends StatefulWidget {
 
 class _CoursesPageState extends State<CoursesPage> {
   final _controller = CoursesController(RepositoryImpl());
+  late FilterState state;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    state = FilterStateContainer.of(context);
+  }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: _controller.fetchCourses(null),
+      future: _controller.fetchCourses(state.filterValue),
       builder: (context, snapshot) {
         final courses = snapshot.data;
 
-        if (courses == null) {
+        if (courses == null ||
+            snapshot.connectionState != ConnectionState.done) {
           return const Center(
             child: CircularProgressIndicator(),
           );
