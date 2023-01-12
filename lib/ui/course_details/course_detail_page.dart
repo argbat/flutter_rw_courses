@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rw_courses/model/course.dart';
 import 'package:rw_courses/ui/course_details/image_container.dart';
 import 'package:rw_courses/utils/strings_extensions.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CourseDetailsPage extends StatelessWidget {
   final Course course;
@@ -11,19 +12,25 @@ class CourseDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Course Details'),
+      appBar: AppBar(
+        title: const Text('Course Details'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildBanner(),
+            _buildMain(context),
+            _buildDetails(context),
+            TextButton(
+              child: const Text('View Course'),
+              onPressed: () => _launchBrowser(course.courseId),
+            )
+          ],
         ),
-        body: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildBanner(),
-                _buildMain(context),
-                _buildDetails(context),
-              ],
-            )));
+      ),
+    );
   }
 
   Widget _buildBanner() {
@@ -85,5 +92,9 @@ class CourseDetailsPage extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void _launchBrowser(String courseId) {
+    launchUrl(Uri.parse('https://rawwenderlich.com/$courseId'));
   }
 }
